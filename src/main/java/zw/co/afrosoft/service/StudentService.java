@@ -21,4 +21,8 @@ public interface StudentService {
     List<Student> getPartOneStudents(String name);
 
     List<Student> searchSophomoreStudents(String name);
+
+    List<Student> searchThirdYearStudents(String name);
+
+    List<Student> searchFinalYearStudents(String name);
 }

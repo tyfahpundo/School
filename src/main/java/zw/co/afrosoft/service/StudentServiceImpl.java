@@ -83,4 +83,23 @@ public class StudentServiceImpl implements StudentService{
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public List<Student> searchThirdYearStudents(String name) {
+        String searchWord = "%".concat(name).concat("%");
+        return repo.findByNameLike(searchWord)
+                .stream()
+                .filter(s -> s.getLevel() == Level.THIRD_YEAR)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Student> searchFinalYearStudents(String name) {
+        String searchWord = "%".concat(name).concat("%");
+        return repo
+                .findByNameLike(searchWord)
+                .stream()
+                .filter(s -> s.getLevel() == Level.FINAL_YEAR)
+                .collect(Collectors.toList());
+    }
+
 }

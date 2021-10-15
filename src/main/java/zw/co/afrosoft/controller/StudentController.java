@@ -47,6 +47,16 @@ public class StudentController {
         List<Student> studentList = service.searchSophomoreStudents(name);
         return new ResponseEntity<>(studentList,HttpStatus.FOUND);
     }
+    @GetMapping("/search-third-year-students")
+    public ResponseEntity<List<Student>> searchThirdYearStudents(@RequestParam String name){
+        List<Student> studentList = service.searchThirdYearStudents(name);
+        return new ResponseEntity<>(studentList,HttpStatus.FOUND);
+    }
+    @GetMapping("/search-final-year-students")
+    public ResponseEntity<List<Student>> searchFinalYearStudents(@RequestParam String name){
+        List<Student> studentList = service.searchFinalYearStudents(name);
+        return new ResponseEntity<>(studentList,HttpStatus.FOUND);
+    }
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteStudent(@PathVariable Long id){
         service.deleteStudent(id);
