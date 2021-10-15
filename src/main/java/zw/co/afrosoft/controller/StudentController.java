@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import zw.co.afrosoft.domain.Level;
 import zw.co.afrosoft.domain.Student;
 import zw.co.afrosoft.domain.dto.request.StudentDetailsRequest;
 import zw.co.afrosoft.domain.dto.response.StudentResponse;

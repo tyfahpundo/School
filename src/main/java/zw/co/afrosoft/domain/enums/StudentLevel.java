@@ -1,6 +1,6 @@
-package zw.co.afrosoft.domain;
+package zw.co.afrosoft.domain.enums;
 
-public enum Level {
+public enum StudentLevel {
     FIRST_YEAR,
     SOPHOMORE,
     THIRD_YEAR,

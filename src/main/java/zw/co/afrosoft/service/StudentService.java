@@ -1,6 +1,5 @@
 package zw.co.afrosoft.service;
 
-import zw.co.afrosoft.domain.Level;
 import zw.co.afrosoft.domain.Student;
 import zw.co.afrosoft.domain.dto.request.StudentDetailsRequest;
 import zw.co.afrosoft.domain.dto.response.StudentResponse;

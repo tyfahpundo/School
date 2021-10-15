@@ -2,7 +2,7 @@ package zw.co.afrosoft.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import zw.co.afrosoft.domain.Level;
+import zw.co.afrosoft.domain.enums.StudentLevel;
 import zw.co.afrosoft.domain.Student;
 import zw.co.afrosoft.domain.dto.request.StudentDetailsRequest;
 import zw.co.afrosoft.domain.dto.response.StudentResponse;
@@ -23,7 +23,10 @@ public class StudentServiceImpl implements StudentService{
         newStudent.setName(studentDetailsRequest.getName());
         newStudent.setSurname(studentDetailsRequest.getSurname());
         newStudent.setAge(studentDetailsRequest.getAge());
-        newStudent.setLevel(studentDetailsRequest.getLevel());
+        newStudent.setStudentLevel(studentDetailsRequest.getStudentLevel());
+        newStudent.setStudentStatus(studentDetailsRequest.getStudentStatus());
+        newStudent.setContactDetail(studentDetailsRequest.getContactDetail());
+        newStudent.setAddress(studentDetailsRequest.getAddress());
         newStudent=repo.save(newStudent);
 
         //Mapping student details to the response
@@ -31,8 +34,11 @@ public class StudentServiceImpl implements StudentService{
         studentResponse.setId(newStudent.getId());
         studentResponse.setName(newStudent.getName());
         studentResponse.setSurname(newStudent.getSurname());
-        studentResponse.setLevel(newStudent.getLevel());
         studentResponse.setAge(newStudent.getAge());
+        studentResponse.setStudentLevel(newStudent.getStudentLevel());
+        studentResponse.setStudentStatus(newStudent.getStudentStatus());
+        studentResponse.setContactDetail(newStudent.getContactDetail());
+        studentResponse.setAddress(newStudent.getAddress());
 
         return studentResponse;
     }
@@ -70,7 +76,7 @@ public class StudentServiceImpl implements StudentService{
         return repo
                 .findByNameLike(searchWord)
                 .stream()
-                .filter(s -> s.getLevel() == Level.FIRST_YEAR)
+                .filter(s -> s.getStudentLevel() == StudentLevel.FIRST_YEAR)
                 .collect(Collectors.toList());
     }
 
@@ -79,7 +85,7 @@ public class StudentServiceImpl implements StudentService{
         String searchWord = "%".concat(name).concat("%");
         return repo.findByNameLike(searchWord)
                 .stream()
-                .filter(s -> s.getLevel() == Level.SOPHOMORE)
+                .filter(s -> s.getStudentLevel() == StudentLevel.SOPHOMORE)
                 .collect(Collectors.toList());
     }
 
@@ -88,7 +94,7 @@ public class StudentServiceImpl implements StudentService{
         String searchWord = "%".concat(name).concat("%");
         return repo.findByNameLike(searchWord)
                 .stream()
-                .filter(s -> s.getLevel() == Level.THIRD_YEAR)
+                .filter(s -> s.getStudentLevel() == StudentLevel.THIRD_YEAR)
                 .collect(Collectors.toList());
     }
 
@@ -98,7 +104,7 @@ public class StudentServiceImpl implements StudentService{
         return repo
                 .findByNameLike(searchWord)
                 .stream()
-                .filter(s -> s.getLevel() == Level.FINAL_YEAR)
+                .filter(s -> s.getStudentLevel() == StudentLevel.FINAL_YEAR)
                 .collect(Collectors.toList());
     }
 
