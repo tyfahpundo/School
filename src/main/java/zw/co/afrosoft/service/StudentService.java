@@ -19,4 +19,6 @@ public interface StudentService {
     void deleteStudent(Long id);
 
     List<Student> getPartOneStudents(String name);
+
+    List<Student> searchSophomoreStudents(String name);
 }

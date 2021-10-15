@@ -74,4 +74,13 @@ public class StudentServiceImpl implements StudentService{
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public List<Student> searchSophomoreStudents(String name) {
+        String searchWord = "%".concat(name).concat("%");
+        return repo.findByNameLike(searchWord)
+                .stream()
+                .filter(s -> s.getLevel() == Level.SOPHOMORE)
+                .collect(Collectors.toList());
+    }
+
 }

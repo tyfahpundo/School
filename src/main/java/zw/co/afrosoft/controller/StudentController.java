@@ -37,9 +37,14 @@ public class StudentController {
         List<Student> students = service.searchByName(name);
         return new ResponseEntity<>(students,HttpStatus.FOUND);
     }
-    @GetMapping("/getAll-part1-students")
+    @GetMapping("/search-part1-students")
     public ResponseEntity<List<Student>> getPartOneStudents(@RequestParam String name){
         List<Student> studentList = service.getPartOneStudents(name);
+        return new ResponseEntity<>(studentList,HttpStatus.FOUND);
+    }
+    @GetMapping("/search-sophomore-students")
+    public ResponseEntity<List<Student>> searchSophomoreStudents(@RequestParam String name){
+        List<Student> studentList = service.searchSophomoreStudents(name);
         return new ResponseEntity<>(studentList,HttpStatus.FOUND);
     }
     @DeleteMapping("/delete/{id}")
