@@ -6,8 +6,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import zw.co.afrosoft.domain.Student;
 import zw.co.afrosoft.domain.dto.request.StudentDetailsRequest;
+import zw.co.afrosoft.domain.dto.request.StudentUpdateRequest;
 import zw.co.afrosoft.domain.dto.response.StudentResponse;
 import zw.co.afrosoft.service.StudentService;
+import zw.co.afrosoft.util.MessageResponse;
 
 import java.util.List;
 
@@ -55,6 +57,21 @@ public class StudentController {
     public ResponseEntity<List<Student>> searchFinalYearStudents(@RequestParam String name){
         List<Student> studentList = service.searchFinalYearStudents(name);
         return new ResponseEntity<>(studentList,HttpStatus.FOUND);
+    }
+    @PutMapping("/terminate/{id}")
+    public ResponseEntity<MessageResponse> terminateStudent(@PathVariable Long id){
+        MessageResponse messageResponse = service.terminateStudent(id);
+        return new ResponseEntity<>(messageResponse,HttpStatus.OK);
+    }
+    @PutMapping("/reinstate/{id}")
+    public ResponseEntity<MessageResponse> reinstateStudent(@PathVariable Long id){
+        MessageResponse messageResponse = service.reinstateStudent(id);
+        return new ResponseEntity<>(messageResponse,HttpStatus.OK);
+    }
+    @PutMapping("/update/{id}")
+    public ResponseEntity<StudentResponse> updateStudent(@PathVariable Long id,@RequestBody StudentUpdateRequest studentUpdateRequest){
+        StudentResponse student = service.updateStudent(id,studentUpdateRequest);
+        return new ResponseEntity<>(student,HttpStatus.OK);
     }
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteStudent(@PathVariable Long id){

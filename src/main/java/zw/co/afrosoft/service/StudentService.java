@@ -2,7 +2,9 @@ package zw.co.afrosoft.service;
 
 import zw.co.afrosoft.domain.Student;
 import zw.co.afrosoft.domain.dto.request.StudentDetailsRequest;
+import zw.co.afrosoft.domain.dto.request.StudentUpdateRequest;
 import zw.co.afrosoft.domain.dto.response.StudentResponse;
+import zw.co.afrosoft.util.MessageResponse;
 
 import java.util.List;
 
@@ -24,4 +26,10 @@ public interface StudentService {
     List<Student> searchThirdYearStudents(String name);
 
     List<Student> searchFinalYearStudents(String name);
+
+    MessageResponse terminateStudent(Long id);
+
+    MessageResponse reinstateStudent(Long id);
+
+    StudentResponse updateStudent(Long id, StudentUpdateRequest studentUpdateRequest);
 }

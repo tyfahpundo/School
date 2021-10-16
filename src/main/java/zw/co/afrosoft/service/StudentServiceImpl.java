@@ -1,12 +1,16 @@
 package zw.co.afrosoft.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import zw.co.afrosoft.domain.dto.request.StudentUpdateRequest;
 import zw.co.afrosoft.domain.enums.StudentLevel;
 import zw.co.afrosoft.domain.Student;
 import zw.co.afrosoft.domain.dto.request.StudentDetailsRequest;
 import zw.co.afrosoft.domain.dto.response.StudentResponse;
+import zw.co.afrosoft.domain.enums.StudentStatus;
 import zw.co.afrosoft.persistence.StudentRepository;
+import zw.co.afrosoft.util.MessageResponse;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -106,6 +110,45 @@ public class StudentServiceImpl implements StudentService{
                 .stream()
                 .filter(s -> s.getStudentLevel() == StudentLevel.FINAL_YEAR)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public MessageResponse terminateStudent(Long id) {
+        Student student = getStudentById(id);
+        student.setStudentStatus(StudentStatus.INACTIVE);
+        this.repo.save(student);
+        return MessageResponse.createMessageResponse("STUDENT SUCCESSFULLY TERMINATED");
+    }
+
+    @Override
+    public MessageResponse reinstateStudent(Long id) {
+        Student student = repo.findById(id).get();
+        student.setStudentStatus(StudentStatus.ACTIVE);
+        this.repo.save(student);
+        return MessageResponse.createMessageResponse("STUDENT SUCCESSFULLY RE_INSTATED");
+    }
+
+    @Override
+    public StudentResponse updateStudent(Long id, StudentUpdateRequest studentUpdateRequest) {
+        Student updateStudent = repo.findById(id).get();
+        updateStudent.setName(studentUpdateRequest.getName());
+        updateStudent.setSurname(studentUpdateRequest.getSurname());
+        updateStudent.setAge(studentUpdateRequest.getAge());
+        updateStudent.setContactDetail(studentUpdateRequest.getContactDetail());
+        updateStudent.setAddress(studentUpdateRequest.getAddress());
+        updateStudent=repo.save(updateStudent);
+
+        StudentResponse studentResponse = new StudentResponse();
+        studentResponse.setId(updateStudent.getId());
+        studentResponse.setName(updateStudent.getName());
+        studentResponse.setSurname(updateStudent.getSurname());
+        studentResponse.setAge(updateStudent.getAge());
+        studentResponse.setStudentLevel(updateStudent.getStudentLevel());
+        studentResponse.setStudentStatus(updateStudent.getStudentStatus());
+        studentResponse.setContactDetail(updateStudent.getContactDetail());
+        studentResponse.setAddress(updateStudent.getAddress());
+
+        return studentResponse;
     }
 
 }
