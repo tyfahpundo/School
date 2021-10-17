@@ -1,5 +1,6 @@
 package zw.co.afrosoft.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,6 +10,8 @@ import zw.co.afrosoft.domain.enums.StudentLevel;
 import zw.co.afrosoft.domain.enums.StudentStatus;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Data
@@ -34,4 +37,8 @@ public class Student {
     private ContactDetail contactDetail;
     @Embedded
     private Address address;
+    @JsonIgnore
+    @ManyToMany(mappedBy = "enrolledStudents")
+    @Column(name = "enrolled_subjects")
+    private Set<Subject> enrolledSubjects = new HashSet<>();
 }

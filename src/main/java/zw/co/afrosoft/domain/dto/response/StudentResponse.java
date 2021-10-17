@@ -4,10 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import zw.co.afrosoft.domain.Subject;
 import zw.co.afrosoft.domain.embaddebles.Address;
 import zw.co.afrosoft.domain.embaddebles.ContactDetail;
 import zw.co.afrosoft.domain.enums.StudentLevel;
 import zw.co.afrosoft.domain.enums.StudentStatus;
+
+import java.util.Set;
 
 @Getter
 @Setter
@@ -22,4 +25,5 @@ public class StudentResponse {
     private StudentStatus studentStatus;
     private ContactDetail contactDetail;
     private Address address;
+    private Set<Subject> enrolledSubjects;
 }

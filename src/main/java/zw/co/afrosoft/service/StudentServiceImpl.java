@@ -43,6 +43,7 @@ public class StudentServiceImpl implements StudentService{
         studentResponse.setStudentStatus(newStudent.getStudentStatus());
         studentResponse.setContactDetail(newStudent.getContactDetail());
         studentResponse.setAddress(newStudent.getAddress());
+        studentResponse.setEnrolledSubjects(newStudent.getEnrolledSubjects());
 
         return studentResponse;
     }
