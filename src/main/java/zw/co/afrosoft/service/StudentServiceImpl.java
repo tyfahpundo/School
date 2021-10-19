@@ -35,7 +35,7 @@ public class StudentServiceImpl implements StudentService{
 
         //Mapping student details to the response
         StudentResponse studentResponse = new StudentResponse();
-        studentResponse.setId(newStudent.getId());
+        studentResponse.setId(newStudent.getStudentId());
         studentResponse.setName(newStudent.getName());
         studentResponse.setSurname(newStudent.getSurname());
         studentResponse.setAge(newStudent.getAge());
@@ -43,7 +43,7 @@ public class StudentServiceImpl implements StudentService{
         studentResponse.setStudentStatus(newStudent.getStudentStatus());
         studentResponse.setContactDetail(newStudent.getContactDetail());
         studentResponse.setAddress(newStudent.getAddress());
-        studentResponse.setEnrolledSubjects(newStudent.getEnrolledSubjects());
+        //studentResponse.setEnrolledSubjects(newStudent.getSubjects());
 
         return studentResponse;
     }
@@ -68,7 +68,7 @@ public class StudentServiceImpl implements StudentService{
 
     @Override
     public void deleteStudent(Long id) {
-        if(repo.getById(id).getId().equals(id)){
+        if(repo.getById(id).getStudentId().equals(id)){
             repo.deleteById(id);
         }else{
             System.out.println("No Record Found");
@@ -140,7 +140,7 @@ public class StudentServiceImpl implements StudentService{
         updateStudent=repo.save(updateStudent);
 
         StudentResponse studentResponse = new StudentResponse();
-        studentResponse.setId(updateStudent.getId());
+        studentResponse.setId(updateStudent.getStudentId());
         studentResponse.setName(updateStudent.getName());
         studentResponse.setSurname(updateStudent.getSurname());
         studentResponse.setAge(updateStudent.getAge());

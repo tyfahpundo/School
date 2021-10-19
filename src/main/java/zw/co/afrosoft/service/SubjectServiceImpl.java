@@ -24,10 +24,10 @@ public class SubjectServiceImpl implements SubjectService {
         newSubject = repo.save(newSubject);
 
         SubjectResponse response = new SubjectResponse();
-        response.setId(newSubject.getId());
+        response.setId(newSubject.getSubjectId());
         response.setName(newSubject.getName());
         response.setCode(newSubject.getCode());
-        response.setEnrolledStudents(newSubject.getEnrolledStudents());
+       // response.setEnrolledStudents(newSubject.getEnrolledStudents());
 
         return response;
     }
@@ -41,13 +41,19 @@ public class SubjectServiceImpl implements SubjectService {
     @Override
     public MessageResponse save(Subject subject) {
         this.repo.save(subject);
-        return MessageResponse.createMessageResponse("THE ENROLLMENT WAS SUCCESSFULLY");
+        return MessageResponse.createMessageResponse("THE ENROLLMENT WAS SUCCESSFUL");
     }
 
     @Override
     public List<Subject> getAllSubjects() {
         List<Subject> subjects = repo.findAll();
         return subjects;
+    }
+
+    @Override
+    public MessageResponse saveunenrollment(Subject subject) {
+        this.repo.save(subject);
+        return MessageResponse.createMessageResponse("THE UN-ENROLLMENT WAS SUCCESSFUL");
     }
 
 }

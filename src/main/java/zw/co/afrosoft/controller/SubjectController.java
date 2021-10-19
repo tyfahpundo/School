@@ -28,12 +28,20 @@ public class SubjectController {
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
     @PutMapping("/{subjectId}/student/{studentId}")
-    public ResponseEntity<MessageResponse> enrollStudentToSubject(@PathVariable(name = "id") Long subjectId, @PathVariable(name = "id") Long studentId){
+    public ResponseEntity<MessageResponse> enrollStudentToSubject(@PathVariable Long subjectId, @PathVariable Long studentId){
        Subject subject = service.getSubjectById(subjectId);
        Student student = studentService.getStudentById(studentId);
-       subject.enrollStudent(student);
+       student.enrollStudent(subject);
        MessageResponse messageResponse = service.save(subject);
        return new ResponseEntity<>(messageResponse,HttpStatus.OK);
+    }
+    @PutMapping("/{subjectId}/subject/{studentId}")
+    public ResponseEntity<MessageResponse> unenrollStudent(@PathVariable Long subjectId,@PathVariable Long studentId){
+        Subject subject = service.getSubjectById(subjectId);
+        Student student = studentService.getStudentById(studentId);
+        student.unenrollStudent(subject);
+        MessageResponse messageResponse = service.saveunenrollment(subject);
+        return new ResponseEntity<>(messageResponse,HttpStatus.OK);
     }
     @GetMapping("/get-all-subjects")
     public ResponseEntity<List<Subject>> getAllSubjects(){

@@ -16,4 +16,6 @@ public interface SubjectService {
     MessageResponse save(Subject subject);
 
     List<Subject> getAllSubjects();
+
+    MessageResponse saveunenrollment(Subject subject);
 }
