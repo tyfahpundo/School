@@ -64,4 +64,10 @@ public class SubjectServiceImpl implements SubjectService {
         return subjectList;
     }
 
+    @Override
+    public MessageResponse deleteSubjectById(Long subjectId) {
+        this.repo.deleteById(subjectId);
+        return MessageResponse.createMessageResponse("SUBJECT DELETED SUCCESSFULLY!!");
+    }
+
 }

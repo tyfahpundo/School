@@ -1,5 +1,6 @@
 package zw.co.afrosoft.controller;
 
+import org.aspectj.bridge.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -52,5 +53,10 @@ public class SubjectController {
     public ResponseEntity<List<Subject>> searchByCode(@RequestParam String code){
         List<Subject> subjectList = service.searchByCode(code);
         return new ResponseEntity<>(subjectList,HttpStatus.FOUND);
+    }
+    @DeleteMapping("/delete/{subjectId}")
+    public ResponseEntity<MessageResponse> deleteSubject(@PathVariable Long subjectId){
+        MessageResponse messageResponse = service.deleteSubjectById(subjectId);
+        return new ResponseEntity<>(messageResponse,HttpStatus.OK);
     }
 }

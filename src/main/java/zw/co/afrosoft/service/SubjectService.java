@@ -20,4 +20,6 @@ public interface SubjectService {
     MessageResponse saveunenrollment(Subject subject);
 
     List<Subject> searchByCode(String code);
+
+    MessageResponse deleteSubjectById(Long subjectId);
 }
