@@ -5,6 +5,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+/**
+ * Date :October 14,2021
+ * @author Tafadzwa Pundo
+ * @version 1.0
+ *
+ */
 
 @Entity
 @Data

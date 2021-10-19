@@ -15,6 +15,12 @@ import org.springframework.web.filter.CorsFilter;
 
 import java.util.Arrays;
 import java.util.Collections;
+/**
+ * Date :October 14,2021
+ * @author Tafadzwa Pundo
+ * @version 1.0
+ *
+ */
 
 
 @Configuration

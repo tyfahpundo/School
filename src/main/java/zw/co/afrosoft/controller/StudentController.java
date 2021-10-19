@@ -3,11 +3,14 @@ package zw.co.afrosoft.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.MailException;
 import org.springframework.web.bind.annotation.*;
 import zw.co.afrosoft.domain.Student;
 import zw.co.afrosoft.domain.dto.request.StudentDetailsRequest;
 import zw.co.afrosoft.domain.dto.request.StudentUpdateRequest;
 import zw.co.afrosoft.domain.dto.response.StudentResponse;
+import zw.co.afrosoft.exceptions.ControllerException;
+import zw.co.afrosoft.service.MailService;
 import zw.co.afrosoft.service.StudentService;
 import zw.co.afrosoft.util.MessageResponse;
 
@@ -17,10 +20,17 @@ import java.util.List;
 @RequestMapping("/student")
 public class StudentController {
     @Autowired
+    private MailService notificationService;
+    @Autowired
     private StudentService service;
     @PostMapping("/create")
     public ResponseEntity<StudentResponse> createStudent(@RequestBody StudentDetailsRequest studentDetailsRequest){
         StudentResponse student = service.createStudent(studentDetailsRequest);
+        try{
+            notificationService.sendEmail(student);
+        }catch (MailException mailException){
+            throw new ControllerException("Something went wrong"+mailException.getMessage());
+        }
         return new ResponseEntity<>(student, HttpStatus.CREATED);
     }
     @GetMapping("/getAll")

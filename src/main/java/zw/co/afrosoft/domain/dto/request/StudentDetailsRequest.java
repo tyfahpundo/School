@@ -15,6 +15,9 @@ public class StudentDetailsRequest {
     private ContactDetail contactDetail;
     private Address address;
 
+    public StudentDetailsRequest() {
+    }
+
     public StudentDetailsRequest(String name, String surname, int age,
                                  StudentLevel studentLevel,
                                  StudentStatus studentStatus,
