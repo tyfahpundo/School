@@ -2,6 +2,7 @@ package zw.co.afrosoft.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import zw.co.afrosoft.domain.Student;
 import zw.co.afrosoft.domain.Subject;
 import zw.co.afrosoft.domain.dto.request.SubjectDetailsRequest;
 import zw.co.afrosoft.domain.dto.response.SubjectResponse;
@@ -54,6 +55,13 @@ public class SubjectServiceImpl implements SubjectService {
     public MessageResponse saveunenrollment(Subject subject) {
         this.repo.save(subject);
         return MessageResponse.createMessageResponse("THE UN-ENROLLMENT WAS SUCCESSFUL");
+    }
+
+    @Override
+    public List<Subject> searchByCode(String code) {
+        String searchWord = "%".concat(code).concat("%");
+        List<Subject> subjectList =  repo.findByCodeLike(searchWord);
+        return subjectList;
     }
 
 }

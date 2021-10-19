@@ -18,4 +18,6 @@ public interface SubjectService {
     List<Subject> getAllSubjects();
 
     MessageResponse saveunenrollment(Subject subject);
+
+    List<Subject> searchByCode(String code);
 }

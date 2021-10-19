@@ -48,4 +48,9 @@ public class SubjectController {
         List<Subject> response = service.getAllSubjects();
         return new ResponseEntity<>(response,HttpStatus.FOUND);
     }
+    @GetMapping("/search-by-subject-code")
+    public ResponseEntity<List<Subject>> searchByCode(@RequestParam String code){
+        List<Subject> subjectList = service.searchByCode(code);
+        return new ResponseEntity<>(subjectList,HttpStatus.FOUND);
+    }
 }
