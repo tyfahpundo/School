@@ -100,7 +100,7 @@ public class StudentServiceImpl implements StudentService{
         }catch (IllegalArgumentException e){
             throw new BusinessException("The Name provided is null, Please provide an Name "+e.getMessage());
         }catch (NoSuchElementException e){
-            throw new BusinessException("There is no Element with the given Id "+e.getMessage());
+            throw new BusinessException("There is no Element with the given name "+e.getMessage());
         }
     }
 

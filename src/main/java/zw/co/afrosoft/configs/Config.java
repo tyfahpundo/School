@@ -1,4 +1,4 @@
-package zw.co.afrosoft.util;
+package zw.co.afrosoft.configs;
 
 //import org.apache.catalina.filters.CorsFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
