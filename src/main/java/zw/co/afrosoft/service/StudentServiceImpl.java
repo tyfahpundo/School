@@ -179,9 +179,14 @@ public class StudentServiceImpl implements StudentService{
     public MessageResponse terminateStudent(Long id) {
         try {
             Student student = getStudentById(id);
-            student.setStudentStatus(StudentStatus.INACTIVE);
-            this.repo.save(student);
-            return MessageResponse.createMessageResponse("STUDENT SUCCESSFULLY TERMINATED");
+            if(student.getStudentStatus()== StudentStatus.ACTIVE){
+                student.setStudentStatus(StudentStatus.INACTIVE);
+                this.repo.save(student);
+                return MessageResponse.createMessageResponse("STUDENT SUCCESSFULLY TERMINATED");
+            }else{
+                return MessageResponse.createMessageResponse("STUDENT ALREADY TERMINATED");
+            }
+
         }catch (Exception e){
             throw new BusinessException("Something went wrong in the Service Layer while terminating the Student");
         }
@@ -192,9 +197,14 @@ public class StudentServiceImpl implements StudentService{
     public MessageResponse reinstateStudent(Long id) {
         try {
             Student student = repo.findById(id).get();
-            student.setStudentStatus(StudentStatus.ACTIVE);
-            this.repo.save(student);
-            return MessageResponse.createMessageResponse("STUDENT SUCCESSFULLY RE_INSTATED");
+            if(student.getStudentStatus() == StudentStatus.INACTIVE){
+                student.setStudentStatus(StudentStatus.ACTIVE);
+                this.repo.save(student);
+                return MessageResponse.createMessageResponse("STUDENT SUCCESSFULLY RE_INSTATED");
+            }else{
+                return MessageResponse.createMessageResponse("STUDENT IS ALREADY ACTIVE!!!!");
+            }
+
         }catch(Exception e){
             throw new BusinessException("Something went wrong in the Service Layer while reinstating the student");
         }
