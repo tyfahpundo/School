@@ -12,14 +12,19 @@ import zw.co.afrosoft.service.SubjectService;
 import zw.co.afrosoft.util.MessageResponse;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/subjects")
 public class SubjectController {
+    private final StudentService studentService;
+    private final SubjectService service;
     @Autowired
-    private StudentService studentService;
-    @Autowired
-    private SubjectService service;
+    public SubjectController(StudentService studentService, SubjectService service) {
+        this.studentService = studentService;
+        this.service = service;
+    }
+
     @PostMapping("/create")
     public ResponseEntity<SubjectResponse> createSubject(@RequestBody SubjectDetailsRequest subjectDetailsRequest){
         SubjectResponse response = service.createSubject(subjectDetailsRequest);
@@ -42,14 +47,20 @@ public class SubjectController {
         return new ResponseEntity<>(messageResponse,HttpStatus.OK);
     }
     @GetMapping("/get-all-subjects")
-    public ResponseEntity<List<Subject>> getAllSubjects(){
+    public ResponseEntity<List<SubjectResponse>> getAllSubjects(){
         List<Subject> response = service.getAllSubjects();
-        return new ResponseEntity<>(response,HttpStatus.FOUND);
+        return new ResponseEntity<>(response.stream()
+                .map(SubjectResponse::createSubjectResponse)
+                .collect(Collectors.toList())
+                ,HttpStatus.FOUND);
     }
     @GetMapping("/search-by-subject-code")
-    public ResponseEntity<List<Subject>> searchByCode(@RequestParam String code){
+    public ResponseEntity<List<SubjectResponse>> searchByCode(@RequestParam String code){
         List<Subject> subjectList = service.searchByCode(code);
-        return new ResponseEntity<>(subjectList,HttpStatus.FOUND);
+        return new ResponseEntity<>(subjectList.stream()
+                .map(SubjectResponse::createSubjectResponse)
+                .collect(Collectors.toList())
+                ,HttpStatus.FOUND);
     }
     @DeleteMapping("/delete/{subjectId}")
     public ResponseEntity<MessageResponse> deleteSubject(@PathVariable Long subjectId){
