@@ -34,17 +34,27 @@ public class SubjectController {
     public ResponseEntity<MessageResponse> enrollStudentToSubject(@PathVariable Long subjectId, @PathVariable Long studentId){
        Subject subject = service.getSubjectById(subjectId);
        Student student = studentService.getStudentById(studentId);
-       student.enrollStudent(subject);
-       MessageResponse messageResponse = service.save(subject);
-       return new ResponseEntity<>(messageResponse,HttpStatus.OK);
+       if(!student.getSubjects().contains(subject)){
+           student.enrollStudent(subject);
+           MessageResponse messageResponse = service.save(subject);
+           return new ResponseEntity<>(messageResponse, HttpStatus.OK);
+       }else {
+           MessageResponse messageResponse = MessageResponse.createMessageResponse("Student already enrolled into this Subject");
+           return new ResponseEntity<>(messageResponse, HttpStatus.OK);
+       }
     }
     @PutMapping("/{subjectId}/subject/{studentId}")
     public ResponseEntity<MessageResponse> unenrollStudent(@PathVariable Long subjectId,@PathVariable Long studentId){
         Subject subject = service.getSubjectById(subjectId);
         Student student = studentService.getStudentById(studentId);
-        student.unenrollStudent(subject);
-        MessageResponse messageResponse = service.saveunenrollment(subject);
-        return new ResponseEntity<>(messageResponse,HttpStatus.OK);
+        if(student.getSubjects().contains(subject)){
+            student.unenrollStudent(subject);
+            MessageResponse messageResponse = service.saveunenrollment(subject);
+            return new ResponseEntity<>(messageResponse,HttpStatus.OK);
+        }else{
+            MessageResponse messageResponse = MessageResponse.createMessageResponse("Invalid Request!!");
+            return new ResponseEntity<>(messageResponse,HttpStatus.OK);
+        }
     }
     @GetMapping("/get-all-subjects")
     public ResponseEntity<List<SubjectResponse>> getAllSubjects(){
