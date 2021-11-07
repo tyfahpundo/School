@@ -29,5 +29,11 @@ public class Subject {
     private String name;
     @Column(name = "subject_code",nullable = false)
     private String code;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "teacher_id",referencedColumnName = "id")
+    private Teacher teacher;
 
+    public void assignTeacher(Teacher teacher) {
+        this.teacher = teacher;
+    }
 }

@@ -1,10 +1,17 @@
 package zw.co.afrosoft.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import zw.co.afrosoft.domain.embaddebles.Address;
+import zw.co.afrosoft.domain.embaddebles.ContactDetail;
+import zw.co.afrosoft.domain.enums.TeacherLevel;
+import zw.co.afrosoft.domain.enums.TeacherStatus;
 
 import javax.persistence.*;
+import java.util.Set;
+
 /**
  * Date :October 14,2021
  * @author Tafadzwa Pundo
@@ -26,4 +33,17 @@ public class Teacher {
     private String surname;
     @Column(name = "age",nullable = false)
     private int age;
+    @Column(name = "level", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private TeacherLevel level;
+    @Column(name = "status",nullable = false)
+    @Enumerated(EnumType.STRING)
+    private TeacherStatus status;
+    @Embedded
+    private Address address;
+    @Embedded
+    private ContactDetail contactDetails;
+    @JsonIgnore
+    @OneToMany(mappedBy = "teacher")
+    private Set<Subject> subjects;
 }

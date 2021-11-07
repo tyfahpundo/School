@@ -5,10 +5,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import zw.co.afrosoft.domain.Student;
 import zw.co.afrosoft.domain.Subject;
+import zw.co.afrosoft.domain.Teacher;
 import zw.co.afrosoft.domain.dto.request.SubjectDetailsRequest;
 import zw.co.afrosoft.domain.dto.response.SubjectResponse;
 import zw.co.afrosoft.service.StudentService;
 import zw.co.afrosoft.service.SubjectService;
+import zw.co.afrosoft.service.TeacherService;
 import zw.co.afrosoft.util.MessageResponse;
 
 import java.util.List;
@@ -19,16 +21,26 @@ import java.util.stream.Collectors;
 public class SubjectController {
     private final StudentService studentService;
     private final SubjectService service;
+    private final TeacherService teacherService;
     @Autowired
-    public SubjectController(StudentService studentService, SubjectService service) {
+    public SubjectController(StudentService studentService, SubjectService service, TeacherService teacherService) {
         this.studentService = studentService;
         this.service = service;
+        this.teacherService = teacherService;
     }
 
     @PostMapping("/create")
     public ResponseEntity<SubjectResponse> createSubject(@RequestBody SubjectDetailsRequest subjectDetailsRequest){
         SubjectResponse response = service.createSubject(subjectDetailsRequest);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
+    }
+    @PutMapping("/{subjectId}/teacher/{teacherId}")
+    public ResponseEntity<MessageResponse> assignTeacherToSubject(@PathVariable Long subjectId, @PathVariable Long teacherId){
+        Subject subject = service.getSubjectById(subjectId);
+        Teacher teacher = teacherService.getTeacherById(teacherId);
+        subject.assignTeacher(teacher);
+        MessageResponse messageResponse = service.save(subject);
+        return new ResponseEntity<>(messageResponse,HttpStatus.OK);
     }
     @PutMapping("/{subjectId}/student/{studentId}")
     public ResponseEntity<MessageResponse> enrollStudentToSubject(@PathVariable Long subjectId, @PathVariable Long studentId){
