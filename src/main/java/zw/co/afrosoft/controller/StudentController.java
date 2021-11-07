@@ -15,6 +15,7 @@ import zw.co.afrosoft.service.StudentService;
 import zw.co.afrosoft.util.MessageResponse;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/student")
@@ -34,40 +35,57 @@ public class StudentController {
         return new ResponseEntity<>(student, HttpStatus.CREATED);
     }
     @GetMapping("/getAll")
-    public ResponseEntity<List<Student>> getAllStudents(){
-        List<Student> studentList = service.getAllStudents();
-        return new ResponseEntity<>(studentList,HttpStatus.OK);
+    public ResponseEntity<List<StudentResponse>> getAllStudents(){
+        return new ResponseEntity<>(service.getAllStudents().stream()
+                .map(StudentResponse::createStudentResponse)
+                .collect(Collectors.toList())
+                ,HttpStatus.OK);
     }
 
     @GetMapping("/get-student/{id}")
-    public ResponseEntity<Student> getStudentById(@PathVariable Long id){
+    public ResponseEntity<StudentResponse> getStudentById(@PathVariable Long id){
         Student student = service.getStudentById(id);
-        return new ResponseEntity<>(student,HttpStatus.FOUND);
+        return new ResponseEntity<>(StudentResponse.createStudentResponse(student),HttpStatus.FOUND);
     }
     @GetMapping("/search")
-    public ResponseEntity<List<Student>> searchByName(@RequestParam String name){
+    public ResponseEntity<List<StudentResponse>> searchByName(@RequestParam String name){
         List<Student> students = service.searchByName(name);
-        return new ResponseEntity<>(students,HttpStatus.FOUND);
+        return new ResponseEntity<>(students.stream()
+                .map(StudentResponse::createStudentResponse)
+                .collect(Collectors.toList())
+                ,HttpStatus.FOUND);
     }
     @GetMapping("/search-part1-students")
-    public ResponseEntity<List<Student>> getPartOneStudents(@RequestParam String name){
+    public ResponseEntity<List<StudentResponse>> getPartOneStudents(@RequestParam String name){
         List<Student> studentList = service.getPartOneStudents(name);
-        return new ResponseEntity<>(studentList,HttpStatus.FOUND);
+        return new ResponseEntity<>(studentList.stream()
+                .map(StudentResponse::createStudentResponse)
+                .collect(Collectors.toList())
+                ,HttpStatus.FOUND);
     }
     @GetMapping("/search-sophomore-students")
-    public ResponseEntity<List<Student>> searchSophomoreStudents(@RequestParam String name){
+    public ResponseEntity<List<StudentResponse>> searchSophomoreStudents(@RequestParam String name){
         List<Student> studentList = service.searchSophomoreStudents(name);
-        return new ResponseEntity<>(studentList,HttpStatus.FOUND);
+        return new ResponseEntity<>(studentList.stream()
+                .map(StudentResponse::createStudentResponse)
+                .collect(Collectors.toList())
+                ,HttpStatus.FOUND);
     }
     @GetMapping("/search-third-year-students")
-    public ResponseEntity<List<Student>> searchThirdYearStudents(@RequestParam String name){
+    public ResponseEntity<List<StudentResponse>> searchThirdYearStudents(@RequestParam String name){
         List<Student> studentList = service.searchThirdYearStudents(name);
-        return new ResponseEntity<>(studentList,HttpStatus.FOUND);
+        return new ResponseEntity<>(studentList.stream()
+                .map(StudentResponse::createStudentResponse)
+                .collect(Collectors.toList())
+                ,HttpStatus.FOUND);
     }
     @GetMapping("/search-final-year-students")
-    public ResponseEntity<List<Student>> searchFinalYearStudents(@RequestParam String name){
+    public ResponseEntity<List<StudentResponse>> searchFinalYearStudents(@RequestParam String name){
         List<Student> studentList = service.searchFinalYearStudents(name);
-        return new ResponseEntity<>(studentList,HttpStatus.FOUND);
+        return new ResponseEntity<>(studentList.stream()
+                .map(StudentResponse::createStudentResponse)
+                .collect(Collectors.toList())
+                ,HttpStatus.FOUND);
     }
     @PutMapping("/terminate/{id}")
     public ResponseEntity<MessageResponse> terminateStudent(@PathVariable Long id){
