@@ -1,6 +1,4 @@
 package zw.co.afrosoft.controller;
-
-import org.aspectj.bridge.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +12,6 @@ import zw.co.afrosoft.service.SubjectService;
 import zw.co.afrosoft.util.MessageResponse;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/subjects")

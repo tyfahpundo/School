@@ -20,10 +20,14 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/student")
 public class StudentController {
+    private final MailService notificationService;
+    private final StudentService service;
     @Autowired
-    private MailService notificationService;
-    @Autowired
-    private StudentService service;
+    public StudentController(MailService notificationService, StudentService service) {
+        this.notificationService = notificationService;
+        this.service = service;
+    }
+
     @PostMapping("/create")
     public ResponseEntity<StudentResponse> createStudent(@RequestBody StudentDetailsRequest studentDetailsRequest){
         StudentResponse student = service.createStudent(studentDetailsRequest);
