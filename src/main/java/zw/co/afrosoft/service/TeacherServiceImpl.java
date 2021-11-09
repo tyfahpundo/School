@@ -6,6 +6,8 @@ import zw.co.afrosoft.domain.dto.request.TeacherDetailsRequest;
 import zw.co.afrosoft.domain.dto.response.TeacherResponse;
 import zw.co.afrosoft.persistence.TeacherRepository;
 
+import java.util.List;
+
 @Service
 public class TeacherServiceImpl implements TeacherService{
     private final TeacherRepository repo;
@@ -44,5 +46,10 @@ public class TeacherServiceImpl implements TeacherService{
     @Override
     public Teacher getTeacherById(Long teacherId) {
         return repo.findById(teacherId).get();
+    }
+
+    @Override
+    public List<Teacher> getAllTeachers() {
+        return repo.findAll();
     }
 }

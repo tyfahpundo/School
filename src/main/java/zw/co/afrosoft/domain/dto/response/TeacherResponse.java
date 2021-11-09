@@ -27,7 +27,6 @@ public class TeacherResponse {
     private TeacherStatus teacherStatus;
     private ContactDetail contactDetail;
     private Address address;
-    private Set<Subject> assignedSubjects;
 
     public TeacherResponse() {
 
@@ -39,6 +38,6 @@ public class TeacherResponse {
         }
         return new TeacherResponse(teacher.getId(), teacher.getName(), teacher.getSurname(), teacher.getAge(),
                 teacher.getLevel(),teacher.getStatus(), teacher.getContactDetails(),
-                teacher.getAddress(), teacher.getSubjects());
+                teacher.getAddress());
     }
 }

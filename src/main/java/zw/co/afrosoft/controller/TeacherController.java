@@ -10,6 +10,9 @@ import zw.co.afrosoft.domain.dto.response.StudentResponse;
 import zw.co.afrosoft.domain.dto.response.TeacherResponse;
 import zw.co.afrosoft.service.TeacherService;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
 @RequestMapping("/teacher")
 public class TeacherController {
@@ -28,5 +31,12 @@ public class TeacherController {
     public ResponseEntity<TeacherResponse> getTeacherById(@PathVariable Long id){
         Teacher teacher = teacherService.getTeacherById(id);
         return new ResponseEntity<>( TeacherResponse.createTeacherResponse(teacher), HttpStatus.OK);
+    }
+    @GetMapping("/get-all-teachers")
+    public ResponseEntity<List<TeacherResponse>> getAllTeachers(){
+        return new ResponseEntity<>(teacherService.getAllTeachers().stream()
+                .map(TeacherResponse::createTeacherResponse)
+                .collect(Collectors.toList())
+                ,HttpStatus.OK);
     }
 }

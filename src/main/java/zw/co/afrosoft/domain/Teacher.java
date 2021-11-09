@@ -1,6 +1,7 @@
 package zw.co.afrosoft.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -43,7 +44,6 @@ public class Teacher {
     private Address address;
     @Embedded
     private ContactDetail contactDetails;
-    @JsonIgnore
-    @OneToMany(mappedBy = "teacher")
-    private Set<Subject> subjects;
+
+//    private Set<Subject> subjects;
 }
