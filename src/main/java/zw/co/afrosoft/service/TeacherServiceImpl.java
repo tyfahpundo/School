@@ -4,9 +4,11 @@ import org.springframework.stereotype.Service;
 import zw.co.afrosoft.domain.Teacher;
 import zw.co.afrosoft.domain.dto.request.TeacherDetailsRequest;
 import zw.co.afrosoft.domain.dto.response.TeacherResponse;
+import zw.co.afrosoft.domain.enums.TeacherStatus;
 import zw.co.afrosoft.persistence.TeacherRepository;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class TeacherServiceImpl implements TeacherService{
@@ -51,5 +53,13 @@ public class TeacherServiceImpl implements TeacherService{
     @Override
     public List<Teacher> getAllTeachers() {
         return repo.findAll();
+    }
+
+    @Override
+    public List<Teacher> getAllActiveTeachers() {
+        return repo.findAll()
+                .stream()
+                .filter(teacher -> teacher.getStatus() == TeacherStatus.ACTIVE)
+                .collect(Collectors.toList());
     }
 }

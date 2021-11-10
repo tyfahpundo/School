@@ -12,4 +12,6 @@ public interface TeacherService {
     Teacher getTeacherById(Long teacherId);
 
     List<Teacher> getAllTeachers();
+
+    List<Teacher> getAllActiveTeachers();
 }

@@ -39,4 +39,11 @@ public class TeacherController {
                 .collect(Collectors.toList())
                 ,HttpStatus.OK);
     }
+    @GetMapping("/all-active-teachers")
+    public ResponseEntity<List<TeacherResponse>> getAllActiveTeachers(){
+        return new ResponseEntity<>(teacherService.getAllActiveTeachers().stream()
+                .map(TeacherResponse::createTeacherResponse)
+                .collect(Collectors.toList())
+                ,HttpStatus.FOUND);
+    }
 }
