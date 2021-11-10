@@ -6,6 +6,7 @@ import zw.co.afrosoft.domain.dto.request.TeacherDetailsRequest;
 import zw.co.afrosoft.domain.dto.response.TeacherResponse;
 import zw.co.afrosoft.domain.enums.TeacherStatus;
 import zw.co.afrosoft.persistence.TeacherRepository;
+import zw.co.afrosoft.util.MessageResponse;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -62,4 +63,37 @@ public class TeacherServiceImpl implements TeacherService{
                 .filter(teacher -> teacher.getStatus() == TeacherStatus.ACTIVE)
                 .collect(Collectors.toList());
     }
+    @Override
+    public List<Teacher> getAllInactiveTeachers() {
+        return repo.findAll()
+                .stream()
+                .filter(teacher -> teacher.getStatus() == TeacherStatus.INACTIVE)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public MessageResponse deactivateTeacher(Long id) {
+        Teacher teacher = repo.findById(id).get();
+        if(teacher.getStatus() == TeacherStatus.ACTIVE){
+            teacher.setStatus(TeacherStatus.INACTIVE);
+            this.repo.save(teacher);
+            return MessageResponse.createMessageResponse("TEACHER SUCCESSFULLY DE-ACTIVATED!!");
+        }else{
+            return MessageResponse.createMessageResponse("TEACHER IS ALREADY INACTIVE!!");
+        }
+    }
+
+    @Override
+    public MessageResponse activateTeacher(Long id) {
+        Teacher teacher = repo.findById(id).get();
+        if(teacher.getStatus() == TeacherStatus.INACTIVE){
+            teacher.setStatus(TeacherStatus.ACTIVE);
+            this.repo.save(teacher);
+            return MessageResponse.createMessageResponse("TEACHER SUCCESSFULLY ACTIVATED!!");
+        }else{
+            return MessageResponse.createMessageResponse("TEACHER IS ALREADY ACTIVE!!!!");
+        }
+    }
+
+
 }

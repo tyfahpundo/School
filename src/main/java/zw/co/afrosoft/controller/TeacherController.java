@@ -9,6 +9,7 @@ import zw.co.afrosoft.domain.dto.request.TeacherDetailsRequest;
 import zw.co.afrosoft.domain.dto.response.StudentResponse;
 import zw.co.afrosoft.domain.dto.response.TeacherResponse;
 import zw.co.afrosoft.service.TeacherService;
+import zw.co.afrosoft.util.MessageResponse;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -45,5 +46,21 @@ public class TeacherController {
                 .map(TeacherResponse::createTeacherResponse)
                 .collect(Collectors.toList())
                 ,HttpStatus.FOUND);
+    }
+    @GetMapping("/all-inactive-teachers")
+    public ResponseEntity<List<TeacherResponse>> getAllInactiveTeachers(){
+        return new ResponseEntity<>(teacherService.getAllInactiveTeachers()
+                .stream()
+                .map(TeacherResponse::createTeacherResponse)
+                .collect(Collectors.toList())
+                ,HttpStatus.FOUND);
+    }
+    @PutMapping("/deactivate-teacher/{id}")
+    public ResponseEntity<MessageResponse> deactivateTeacher(@PathVariable Long id){
+        return new ResponseEntity<>(teacherService.deactivateTeacher(id),HttpStatus.OK);
+    }
+    @PutMapping("/activate-teacher/{id}")
+    public ResponseEntity<MessageResponse> activateTeacher(@PathVariable Long id){
+        return new ResponseEntity<>(teacherService.activateTeacher(id),HttpStatus.OK);
     }
 }
