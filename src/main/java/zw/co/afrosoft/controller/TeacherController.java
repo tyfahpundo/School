@@ -6,7 +6,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import zw.co.afrosoft.domain.Teacher;
 import zw.co.afrosoft.domain.dto.request.TeacherDetailsRequest;
-import zw.co.afrosoft.domain.dto.response.StudentResponse;
 import zw.co.afrosoft.domain.dto.response.TeacherResponse;
 import zw.co.afrosoft.service.TeacherService;
 import zw.co.afrosoft.util.MessageResponse;
