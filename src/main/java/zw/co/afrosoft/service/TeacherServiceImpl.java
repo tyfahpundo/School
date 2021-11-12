@@ -3,12 +3,14 @@ package zw.co.afrosoft.service;
 import org.springframework.stereotype.Service;
 import zw.co.afrosoft.domain.Teacher;
 import zw.co.afrosoft.domain.dto.request.TeacherDetailsRequest;
+import zw.co.afrosoft.domain.dto.request.UpdateTeacherRequest;
 import zw.co.afrosoft.domain.dto.response.TeacherResponse;
 import zw.co.afrosoft.domain.enums.TeacherStatus;
 import zw.co.afrosoft.persistence.TeacherRepository;
 import zw.co.afrosoft.util.MessageResponse;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -70,6 +72,33 @@ public class TeacherServiceImpl implements TeacherService{
                 .filter(teacher -> teacher.getStatus() == TeacherStatus.INACTIVE)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public TeacherResponse updateTeacher(Long id, UpdateTeacherRequest updateTeacherRequest) {
+        Teacher updatedTeacher = repo.findById(id).get();
+        updatedTeacher.setName(updateTeacherRequest.getName());
+        updatedTeacher.setSurname(updateTeacherRequest.getSurname());
+        updatedTeacher.setAge(updateTeacherRequest.getAge());
+        updatedTeacher.setLevel(updateTeacherRequest.getTeacherLevel());
+        updatedTeacher.setStatus(updateTeacherRequest.getTeacherStatus());
+        updatedTeacher.setAddress(updateTeacherRequest.getAddress());
+        updatedTeacher.setContactDetails(updateTeacherRequest.getContactDetail());
+        updatedTeacher = repo.save(updatedTeacher);
+
+        TeacherResponse teacherResponse = new TeacherResponse();
+        teacherResponse.setName(updatedTeacher.getName());
+        teacherResponse.setSurname(updatedTeacher.getSurname());
+        teacherResponse.setAge(updatedTeacher.getAge());
+        teacherResponse.setTeacherLevel(updatedTeacher.getLevel());
+        teacherResponse.setTeacherStatus(updatedTeacher.getStatus());
+        teacherResponse.setAddress(updatedTeacher.getAddress());
+        teacherResponse.setContactDetail(updatedTeacher.getContactDetails());
+
+        return  teacherResponse;
+
+
+    }
+
 
     @Override
     public MessageResponse deactivateTeacher(Long id) {

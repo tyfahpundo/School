@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import zw.co.afrosoft.domain.Teacher;
 import zw.co.afrosoft.domain.dto.request.TeacherDetailsRequest;
+import zw.co.afrosoft.domain.dto.request.UpdateTeacherRequest;
 import zw.co.afrosoft.domain.dto.response.TeacherResponse;
 import zw.co.afrosoft.service.TeacherService;
 import zw.co.afrosoft.util.MessageResponse;
@@ -61,5 +62,10 @@ public class TeacherController {
     @PutMapping("/activate-teacher/{id}")
     public ResponseEntity<MessageResponse> activateTeacher(@PathVariable Long id){
         return new ResponseEntity<>(teacherService.activateTeacher(id),HttpStatus.OK);
+    }
+    @PutMapping("/update-teacher/{id}")
+    public ResponseEntity<TeacherResponse> updateTeacher(@PathVariable Long id, @RequestBody UpdateTeacherRequest updateTeacherRequest){
+        TeacherResponse updatedTeacher = teacherService.updateTeacher(id,updateTeacherRequest);
+        return new ResponseEntity<>(updatedTeacher,HttpStatus.OK);
     }
 }
