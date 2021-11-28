@@ -237,4 +237,18 @@ public class StudentServiceImpl implements StudentService{
         }
     }
 
+    @Override
+    public Student getStudentByName(String name) {
+        try{
+            Student student = repo.findByName(name);
+            return student;
+
+        }catch (IllegalArgumentException e){
+            throw new BusinessException("The Name provided is Null, Please povide a valid name "+e.getMessage());
+        }catch(NoSuchElementException e){
+            throw  new BusinessException("There is no Element with the given Name"+e.getMessage());
+        }
+
+    }
+
 }

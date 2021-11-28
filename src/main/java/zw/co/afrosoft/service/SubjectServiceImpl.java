@@ -2,16 +2,15 @@ package zw.co.afrosoft.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import zw.co.afrosoft.domain.Student;
 import zw.co.afrosoft.domain.Subject;
 import zw.co.afrosoft.domain.dto.request.SubjectDetailsRequest;
 import zw.co.afrosoft.domain.dto.response.SubjectResponse;
 import zw.co.afrosoft.persistence.SubjectRepository;
 import zw.co.afrosoft.util.MessageResponse;
 
-import java.util.ArrayList;
+
 import java.util.List;
-import java.util.Optional;
+
 /**
  * Date :October 14,2021
  * @author Tafadzwa Pundo

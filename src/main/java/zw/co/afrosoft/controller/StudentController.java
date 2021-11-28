@@ -51,6 +51,12 @@ public class StudentController {
         Student student = service.getStudentById(id);
         return new ResponseEntity<>(StudentResponse.createStudentResponse(student),HttpStatus.FOUND);
     }
+    @GetMapping("/get-student")
+    public ResponseEntity<StudentResponse> getStudentByName(@RequestParam String name){
+        Student student = service.getStudentByName(name);
+        return  new ResponseEntity<>(StudentResponse.createStudentResponse(student),HttpStatus.OK);
+    }
+
     @GetMapping("/search")
     public ResponseEntity<List<StudentResponse>> searchByName(@RequestParam String name){
         List<Student> students = service.searchByName(name);

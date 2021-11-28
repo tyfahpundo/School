@@ -7,13 +7,10 @@ import zw.co.afrosoft.domain.Subject;
 import zw.co.afrosoft.domain.Teacher;
 import zw.co.afrosoft.domain.embaddebles.Address;
 import zw.co.afrosoft.domain.embaddebles.ContactDetail;
-import zw.co.afrosoft.domain.enums.StudentLevel;
-import zw.co.afrosoft.domain.enums.StudentStatus;
 import zw.co.afrosoft.domain.enums.TeacherLevel;
 import zw.co.afrosoft.domain.enums.TeacherStatus;
 
 import java.util.Objects;
-import java.util.Set;
 
 @Getter
 @Setter

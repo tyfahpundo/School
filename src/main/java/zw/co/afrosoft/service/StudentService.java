@@ -32,4 +32,6 @@ public interface StudentService {
     MessageResponse reinstateStudent(Long id);
 
     StudentResponse updateStudent(Long id, StudentUpdateRequest studentUpdateRequest);
+
+    Student getStudentByName(String name);
 }
