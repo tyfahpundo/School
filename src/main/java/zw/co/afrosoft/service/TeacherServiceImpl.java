@@ -23,27 +23,27 @@ public class TeacherServiceImpl implements TeacherService{
     @Override
     public TeacherResponse createTeacher(TeacherDetailsRequest teacherDetailsRequest) {
         //Creating a Teacher
-        Teacher teacher = new Teacher();
-        teacher.setName(teacherDetailsRequest.getName());
-        teacher.setSurname(teacherDetailsRequest.getSurname());
-        teacher.setAge(teacherDetailsRequest.getAge());
-        teacher.setLevel(teacherDetailsRequest.getTeacherLevel());
-        teacher.setStatus(teacherDetailsRequest.getTeacherStatus());
-        teacher.setAddress(teacherDetailsRequest.getAddress());
-        teacher.setContactDetails(teacherDetailsRequest.getContactDetail());
+        Teacher teacher = new Teacher().builder()
+                .name(teacherDetailsRequest.getName())
+                .surname(teacherDetailsRequest.getSurname())
+                .age(teacherDetailsRequest.getAge())
+                .level(teacherDetailsRequest.getTeacherLevel())
+                .status(teacherDetailsRequest.getTeacherStatus())
+                .address(teacherDetailsRequest.getAddress())
+                .contactDetails(teacherDetailsRequest.getContactDetail())
+                .build();
         teacher = repo.save(teacher);
+
         //Mapping the teacher to Response
-
-        TeacherResponse teacherResponse = new TeacherResponse();
-        teacherResponse.setId(teacher.getId());
-        teacherResponse.setName(teacher.getName());
-        teacherResponse.setSurname(teacher.getSurname());
-        teacherResponse.setAge(teacher.getAge());
-        teacherResponse.setTeacherLevel(teacher.getLevel());
-        teacherResponse.setTeacherStatus(teacher.getStatus());
-        teacherResponse.setAddress(teacher.getAddress());
-        teacherResponse.setContactDetail(teacher.getContactDetails());
-
+        TeacherResponse teacherResponse = new TeacherResponse().builder()
+                .id(teacher.getId())
+                .name(teacher.getName())
+                .age(teacher.getAge())
+                .teacherLevel(teacher.getLevel())
+                .teacherStatus(teacher.getStatus())
+                .address(teacher.getAddress())
+                .contactDetail(teacher.getContactDetails())
+                .build();
         return teacherResponse;
     }
 
@@ -75,29 +75,28 @@ public class TeacherServiceImpl implements TeacherService{
     @Override
     public TeacherResponse updateTeacher(Long id, UpdateTeacherRequest updateTeacherRequest) {
         Teacher updatedTeacher = repo.findById(id).get();
-        updatedTeacher.setName(updateTeacherRequest.getName());
-        updatedTeacher.setSurname(updateTeacherRequest.getSurname());
-        updatedTeacher.setAge(updateTeacherRequest.getAge());
-        updatedTeacher.setLevel(updateTeacherRequest.getTeacherLevel());
-        updatedTeacher.setStatus(updateTeacherRequest.getTeacherStatus());
-        updatedTeacher.setAddress(updateTeacherRequest.getAddress());
-        updatedTeacher.setContactDetails(updateTeacherRequest.getContactDetail());
+        updatedTeacher.builder()
+                .name(updatedTeacher.getName())
+                .surname(updateTeacherRequest.getSurname())
+                .age(updatedTeacher.getAge())
+                .level(updatedTeacher.getLevel())
+                .status(updatedTeacher.getStatus())
+                .address(updateTeacherRequest.getAddress())
+                .contactDetails(updateTeacherRequest.getContactDetail())
+                .build();
         updatedTeacher = repo.save(updatedTeacher);
 
-        TeacherResponse teacherResponse = new TeacherResponse();
-        teacherResponse.setName(updatedTeacher.getName());
-        teacherResponse.setSurname(updatedTeacher.getSurname());
-        teacherResponse.setAge(updatedTeacher.getAge());
-        teacherResponse.setTeacherLevel(updatedTeacher.getLevel());
-        teacherResponse.setTeacherStatus(updatedTeacher.getStatus());
-        teacherResponse.setAddress(updatedTeacher.getAddress());
-        teacherResponse.setContactDetail(updatedTeacher.getContactDetails());
-
+        TeacherResponse teacherResponse = new TeacherResponse().builder()
+                .name(updatedTeacher.getName())
+                .surname(updatedTeacher.getSurname())
+                .age(updatedTeacher.getAge())
+                .teacherLevel(updatedTeacher.getLevel())
+                .teacherStatus(updatedTeacher.getStatus())
+                .address(updateTeacherRequest.getAddress())
+                .contactDetail(updatedTeacher.getContactDetails())
+                .build();
         return  teacherResponse;
-
-
     }
-
 
     @Override
     public MessageResponse deactivateTeacher(Long id) {

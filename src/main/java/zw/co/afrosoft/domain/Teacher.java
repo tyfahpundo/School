@@ -3,6 +3,7 @@ package zw.co.afrosoft.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import zw.co.afrosoft.domain.embaddebles.Address;
@@ -23,6 +24,7 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Teacher {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

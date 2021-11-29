@@ -1,6 +1,7 @@
 package zw.co.afrosoft.domain.dto.response;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import zw.co.afrosoft.domain.Subject;
@@ -15,6 +16,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @AllArgsConstructor
+@Builder
 public class TeacherResponse {
     private Long id;
     private String name;
