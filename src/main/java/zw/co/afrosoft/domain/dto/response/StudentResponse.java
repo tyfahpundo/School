@@ -1,9 +1,6 @@
 package zw.co.afrosoft.domain.dto.response;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import zw.co.afrosoft.domain.Student;
 import zw.co.afrosoft.domain.Subject;
 import zw.co.afrosoft.domain.embaddebles.Address;
@@ -18,6 +15,7 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class StudentResponse {
     private Long id;
     private String name;

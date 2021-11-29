@@ -34,29 +34,29 @@ public class StudentServiceImpl implements StudentService{
         }
         try {
             //Creating a Student Object
-            Student newStudent = new Student();
+            Student newStudent = new Student().builder()
+                    .name(studentDetailsRequest.getName())
+                    .surname(studentDetailsRequest.getSurname())
+                    .age(studentDetailsRequest.getAge())
+                    .studentLevel(studentDetailsRequest.getStudentLevel())
+                    .studentStatus(studentDetailsRequest.getStudentStatus())
+                    .contactDetail(studentDetailsRequest.getContactDetail())
+                    .address(studentDetailsRequest.getAddress())
+                    .build();
             //Mapping new student details from the request
-            newStudent.setName(studentDetailsRequest.getName());
-            newStudent.setSurname(studentDetailsRequest.getSurname());
-            newStudent.setAge(studentDetailsRequest.getAge());
-            newStudent.setStudentLevel(studentDetailsRequest.getStudentLevel());
-            newStudent.setStudentStatus(studentDetailsRequest.getStudentStatus());
-            newStudent.setContactDetail(studentDetailsRequest.getContactDetail());
-            newStudent.setAddress(studentDetailsRequest.getAddress());
             newStudent = repo.save(newStudent);
 
             //Mapping student details to the response
-            StudentResponse studentResponse = new StudentResponse();
-            studentResponse.setId(newStudent.getStudentId());
-            studentResponse.setName(newStudent.getName());
-            studentResponse.setSurname(newStudent.getSurname());
-            studentResponse.setAge(newStudent.getAge());
-            studentResponse.setStudentLevel(newStudent.getStudentLevel());
-            studentResponse.setStudentStatus(newStudent.getStudentStatus());
-            studentResponse.setContactDetail(newStudent.getContactDetail());
-            studentResponse.setAddress(newStudent.getAddress());
-            //studentResponse.setEnrolledSubjects(newStudent.getSubjects());
-
+            StudentResponse studentResponse = new StudentResponse().builder()
+                    .id(newStudent.getStudentId())
+                    .name(newStudent.getName())
+                    .surname(newStudent.getSurname())
+                    .age(newStudent.getAge())
+                    .studentLevel(newStudent.getStudentLevel())
+                    .studentStatus(newStudent.getStudentStatus())
+                    .contactDetail(newStudent.getContactDetail())
+                    .address(newStudent.getAddress())
+                    .build();
             return studentResponse;
         }catch (IllegalArgumentException e){
             throw new BusinessException("Something went wrong in the Service Layer while adding the Student "+e.getMessage());
@@ -214,23 +214,25 @@ public class StudentServiceImpl implements StudentService{
     public StudentResponse updateStudent(Long id, StudentUpdateRequest studentUpdateRequest) {
         try {
             Student updateStudent = repo.findById(id).get();
-            updateStudent.setName(studentUpdateRequest.getName());
-            updateStudent.setSurname(studentUpdateRequest.getSurname());
-            updateStudent.setAge(studentUpdateRequest.getAge());
-            updateStudent.setContactDetail(studentUpdateRequest.getContactDetail());
-            updateStudent.setAddress(studentUpdateRequest.getAddress());
+            updateStudent.builder()
+                    .name(studentUpdateRequest.getName())
+                    .surname(studentUpdateRequest.getSurname())
+                    .age(studentUpdateRequest.getAge())
+                    .contactDetail(studentUpdateRequest.getContactDetail())
+                    .address(studentUpdateRequest.getAddress())
+                    .build();
             updateStudent = repo.save(updateStudent);
 
-            StudentResponse studentResponse = new StudentResponse();
-            studentResponse.setId(updateStudent.getStudentId());
-            studentResponse.setName(updateStudent.getName());
-            studentResponse.setSurname(updateStudent.getSurname());
-            studentResponse.setAge(updateStudent.getAge());
-            studentResponse.setStudentLevel(updateStudent.getStudentLevel());
-            studentResponse.setStudentStatus(updateStudent.getStudentStatus());
-            studentResponse.setContactDetail(updateStudent.getContactDetail());
-            studentResponse.setAddress(updateStudent.getAddress());
-
+            StudentResponse studentResponse = new StudentResponse().builder()
+                    .id(updateStudent.getStudentId())
+                    .name(updateStudent.getName())
+                    .surname(updateStudent.getSurname())
+                    .age(updateStudent.getAge())
+                    .studentLevel(updateStudent.getStudentLevel())
+                    .studentStatus(updateStudent.getStudentStatus())
+                    .contactDetail(updateStudent.getContactDetail())
+                    .address(updateStudent.getAddress())
+                    .build();
             return studentResponse;
         }catch (Exception e){
             throw new BusinessException("Something went wrong in the Service Layer while updating the Student");
